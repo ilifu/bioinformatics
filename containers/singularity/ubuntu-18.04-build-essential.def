@@ -1,0 +1,41 @@
+Bootstrap: debootstrap
+MirrorURL: http://archive.ubuntu.com/ubuntu/
+OSVersion: bionic
+Include: software-properties-common
+%post
+	# --- Installation of pre-requisite packages ---
+	apt-get update -y 
+	apt-get install -y wget apt-utils 
+
+	# Add repositories
+	add-apt-repository ppa:git-core/ppa
+	apt-add-repository multiverse
+	apt-add-repository restricted
+	apt-get update -y
+	apt-get upgrade -y
+	
+	# Packages
+	apt-get install -y \
+		build-essential \
+		git \
+		libffi-dev \
+		libncurses5-dev \
+		libreadline-dev \
+		libssl-dev \
+		zlib1g-dev \
+		zsh \
+
+		
+
+%files
+	# Copy local casapy and jupyter kernel files to the container
+
+%environment
+
+%runscript 
+	#!/bin/sh
+	exec /bin/bash "$@"
+
+%labels
+	Maintainer Dane
+	Version v0.1
