@@ -4,45 +4,46 @@ OSVersion: bionic
 Include: software-properties-common
 
 %labels
-    Maintainer Firstname Surname
-    Version 0.1a
+  Maintainer Firstname Surname
+  Version 0.1a
 
 %environment
-    export INSTALLER_PATH=/installer
-    export SOFTWARE_PATH=/software
-    export PATH=$SOFTWARE_PATH:$PATH
-    export PATH="/anaconda3/bin:$PATH"
-    export LC_ALL=C
-    unset XDG_RUNTIME_DIR
+  export INSTALLER_PATH=/installer
+  export SOFTWARE_PATH=/software
+  export PATH=$SOFTWARE_PATH:$PATH
+  export PATH="/anaconda3/bin:$PATH"
+  export LC_ALL=C
+  unset XDG_RUNTIME_DIR
 
 %post
-    # Create Installation Directories and export paths. This is needed as part of post.
-    # %environment scriptlet does not define these paths during %post, only after.
-    mkdir -p /software /installer
-    export INSTALLER_PATH=/installer
-    export SOFTWARE_PATH=/software
+  # Create Installation Directories and export paths. This is needed as part of post.
+  # %environment scriptlet does not define these paths during %post, only after.
+  mkdir -p /software /installer
+  export INSTALLER_PATH=/installer
+  export SOFTWARE_PATH=/software
 
-    # Update apt
-    apt-get update -y && apt-get upgrade -y
+  # Update apt
+  apt-get update -y && apt-get upgrade -y
 
-    # Add repositories
-    apt-add-repository universe
-    apt-add-repository restricted
+  # Add repositories
+  apt-add-repository universe
+  apt-add-repository restricted
+  apt-get update
 
-    # Install common stuff
-    apt-get install -y locales screen tmux tcsh zsh lftp nano emacs
+  # Install common stuff
+  apt-get install -y locales screen tmux tcsh zsh lftp nano emacs
 
-    # Configure locale
-    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
-    echo "en_ZA.UTF-8 UTF-8" >> /etc/locale.gen
-    locale-gen en_US.utf8 en_ZA.utf8
-    /usr/sbin/update-locale LANG=en_ZA.UTF-8
-    export LC_ALL=en_ZA.UTF-8
-    export LANG=en_ZA.UTF-8
+  # Configure locale
+  echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+  echo "en_ZA.UTF-8 UTF-8" >> /etc/locale.gen
+  locale-gen en_US.utf8 en_ZA.utf8
+  /usr/sbin/update-locale LANG=en_ZA.UTF-8
+  export LC_ALL=en_ZA.UTF-8
+  export LANG=en_ZA.UTF-8
 
-    # Create /users to bind home directories into the container.
-    mkdir -p /users /scratch /data
+  # Create /users to bind home directories into the container.
+  mkdir -p /users /scratch /data
 
-    # Cleanup the container
-    apt-get clean
-    apt-get autoclean
+  # Cleanup the container
+  apt-get clean
+  apt-get autoclean
