@@ -1,9 +1,12 @@
 Bootstrap: localimage
-From: ../base.simg
+From: ../base-ubuntu-bionic.simg
 
 %labels
-    Maintainer Dane Kennedy
-    R_Version 3.5.3
+  Maintainer Dane Kennedy
+  R_Version 3.5.3
+
+#help
+  R 3.5.3 definition file.
 
 %apprun R
   exec R "${@}"

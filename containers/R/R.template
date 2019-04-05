@@ -1,9 +1,12 @@
 Bootstrap: localimage
-From: ../base.simg
+From: ../XXXX.simg
 
 %labels
-    Maintainer Firstname Surname
-    R_Version XXXX
+  Maintainer Firstname Surname
+  R_Version XXXX
+
+#help
+  Base R singularity definition file template , to reate base.simg, which can then be used for creating R containers
 
 %apprun R
   exec R "${@}"

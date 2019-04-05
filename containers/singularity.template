@@ -7,6 +7,9 @@ Include: software-properties-common
   Maintainer Firstname Surname
   Version 0.1a
 
+#help
+  Basic template to use when creating singularity definition files
+
 %environment
   export INSTALLER_PATH=/installer
   export SOFTWARE_PATH=/software
