@@ -61,3 +61,6 @@ From: ../base-ubuntu-bionic.simg
   # Cleanup the container
   apt-get clean
   apt-get autoclean
+
+%test
+  R --version | grep "${R_VERSION}"

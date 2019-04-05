@@ -50,3 +50,6 @@ Include: software-properties-common
   # Cleanup the container
   apt-get clean
   apt-get autoclean
+
+%test
+  grep "18.04" /etc/issue
