@@ -29,7 +29,6 @@ Include: software-properties-common
     apt-add-repository universe
     apt-add-repository restricted
 
-
     # Install common stuff
     apt-get install -y locales screen tmux tcsh zsh lftp nano emacs
 
