@@ -14,7 +14,6 @@ Include: software-properties-common
   export INSTALLER_PATH=/installer
   export SOFTWARE_PATH=/software
   export PATH=$SOFTWARE_PATH:$PATH
-  export PATH="/anaconda3/bin:$PATH"
   export LC_ALL=C
   unset XDG_RUNTIME_DIR
 
