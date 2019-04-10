@@ -1,12 +1,12 @@
 Bootstrap: localimage
-From: ../base-ubuntu-bionic.simg
+From: base-ubuntu-bionic.simg
 
 %labels
   Maintainer Dane Kennedy
-  R_Version 3.5.3
+  R_Version 3.5.1
 
 #help
-  R 3.5.3 definition file.
+  R 3.5.1 definition file.
 
 %apprun R
   exec R "${@}"
@@ -18,12 +18,12 @@ From: ../base-ubuntu-bionic.simg
   exec R "${@}"
 
 %environment
-  export R_VERSION=3.5.3
+  export R_VERSION=3.5.1
 
 %post
   # Create Installation Directories and export paths. This is needed as part of post.
   # %environment scriptlet does not define these paths during %post, only after.
-  export R_VERSION=3.5.3
+  export R_VERSION=3.5.1
 
   # Update apt
   apt-get update -y && apt-get upgrade -y

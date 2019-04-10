@@ -1,0 +1,67 @@
+SB = 'singularity build'
+
+BASES = ['bionic']
+RS = ['bionic-R3.5.3', 'bionic-R3.5.1']
+RSTUDIOS = ['bionic-R3.5.3-RStudio1.1.463', 'bionic-R3.5.1-RStudio1.1.463']
+
+rule all:
+    input:
+        [f'{base}.simg' for base in BASES],
+        [f'R/{r}.simg' for r in RS],
+        [f'R/RStudio/{rstudio}.simg' for rstudio in RSTUDIOS],
+
+
+rule base_images:
+    input:
+        'base-{base}.def',
+    output:
+        '{base}.simg',
+    shell:
+        '{SB} {output} {input}'
+
+rule all_bases:
+    input:
+        [f'{base}.simg' for base in BASES]
+
+rule R:
+    input:
+        'R/{base}-{r_version}.def',
+        '{base}.simg'
+    output:
+        'R/{base}-{r_version}.simg'
+    wildcard_constraints:
+        base='[^-]+',
+        r_version='[^-]+'
+    shell:
+        '{SB} {output} {input}'
+
+rule all_R:
+    input:
+        [f'R/{r_version}.simg' for r_version in RS]
+
+
+rule RStudio:
+    input:
+        'R/RStudio/{base}-{r_version}-{rstudio}.def',
+        'R/{base}-{r_version}.simg'
+    output:
+        'R/RStudio/{base}-{r_version}-{rstudio}.simg'
+    wildcard_constraints:
+        base='[^-]+',
+        r_version='[^-]+',
+        rstudio='[^-]+'
+    shell:
+        '{SB} {output} {input}'
+
+rule all_RStudio:
+    input:
+        [f'R/RStudio/{r_studio}.simg' for r_studio in RSTUDIOS]
+
+#rule def_to_simg:
+#    """compile single .def file to single .simg file"""
+#    output:
+#        '{name}.simg'
+#    input:
+#        '{name}.def'
+#    shell:
+#        "{SB} {output} {input}"
