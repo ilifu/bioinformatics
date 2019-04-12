@@ -4,3 +4,12 @@
 [submodule "containers/R/singularity-r"]
 	path = containers/R/singularity-r
 	url = git@github.com:nickjer/singularity-r.git
+[submodule "containers/sra_tools/sra-tools"]
+	path = containers/sra_tools/sra-tools
+	url = https://github.com/ncbi/sra-tools.git
+[submodule "containers/sra_tools/ngs"]
+	path = containers/sra_tools/ngs
+	url = https://github.com/ncbi/ngs.git
+[submodule "containers/sra_tools/ncbi-vdb"]
+	path = containers/sra_tools/ncbi-vdb
+	url = https://github.com/ncbi/ncbi-vdb.git
