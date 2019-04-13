@@ -1,14 +1,16 @@
 SB = 'singularity build'
 
-BASES = ['bionic']
+BASES = ['bionic', 'bionic_compile']
 RS = ['bionic-R3.5.3']
 RSTUDIOS = ['bionic-R3.5.3-RStudio1.1.463']
+SRA_TOOLS = ['bionic_compile-sra_tools2.9.6']
 
 rule all:
     input:
         [f'{base}.simg' for base in BASES],
         [f'R/{r}.simg' for r in RS],
         [f'R/RStudio/{rstudio}.simg' for rstudio in RSTUDIOS],
+        [f'sra_tools/{sra_tool}.simg' for sra_tool in SRA_TOOLS]
 
 
 rule base_images:
@@ -56,6 +58,22 @@ rule RStudio:
 rule all_RStudio:
     input:
         [f'R/RStudio/{r_studio}.simg' for r_studio in RSTUDIOS]
+
+rule sra_tools:
+    input:
+        tools='sra_tools/{base}-{sra_tools_version}.def',
+        base_image='{base}.simg'
+    output:
+        'sra_tools/{base}-{sra_tools_version}.simg'
+    wildcard_constraints:
+        base='[^-]+',
+        sra_tools_version='[^-]+'
+    shell:
+        '{SB} {output} {input.tools}'
+
+rule all_sra_tools:
+    input:
+        [f'sra_tools/{sra_tools_version}.simg' for sra_tools_version in SRA_TOOLS]
 
 #rule def_to_simg:
 #    """compile single .def file to single .simg file"""
