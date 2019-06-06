@@ -2,7 +2,7 @@ SB = 'singularity build'
 
 BASES = ['bionic', 'bionic_compile']
 RS = ['bionic-R3.6.0']
-RSTUDIOS = ['bionic-R3.6.0-RStudio1.1.463']
+RSTUDIOS = ['bionic-R3.6.0-RStudio1.1.463', 'bionic-R3.6.0-RStudio1.2.1335']
 SRA_TOOLS = ['bionic_compile-sra_tools2.9.6']
 
 rule all:
