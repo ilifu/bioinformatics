@@ -37,9 +37,10 @@ From: bionic.simg
   CPATH=${SOFTWARE_PATH}/include:${CPATH}
   INCLUDE=${SOFTWARE_PATH}/include/:${INCLUDE}
   PKG_CONFIG_PATH=${SOFTWARE_PATH}/lib/pkgconfig:${PKG_CONFIG_PATH}
+  export DEBIAN_FRONTEND=noninteractive
 
   # Update apt
-  apt-get update -y && apt-get upgrade -y
+  apt-get update -y && apt-get dist-upgrade -y
 
   # Install common stuff
   apt-get install -y \

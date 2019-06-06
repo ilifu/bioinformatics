@@ -163,9 +163,14 @@ From: bionic_compile.simg
   # build ngs
   cd ${INSTALLER_PATH}/ncbi/ngs
   ./configure  --prefix=${SOFTWARE_PATH}
+  make -j4
   make -j4 -C ngs-sdk
   make -j4 -C ngs-java
   make -j4 -C ngs-python
+  make -C ngs-sdk install
+  make -C ngs-java install
+  make -C ngs-python install
+
 
     # build ncbi-vdb  # yes again -- there seem to be some circular dependencies?
     cd ${INSTALLER_PATH}/ncbi/ncbi-vdb
@@ -174,13 +179,18 @@ From: bionic_compile.simg
     make install
 
   cd ${INSTALLER_PATH}/ncbi/ngs
+  make clean
+  ./configure  --prefix=${SOFTWARE_PATH}
+  make -j4 -C ngs-sdk
+  make -j4 -C ngs-java
+  make -j4 -C ngs-python
   make -C ngs-sdk install
   make -C ngs-java install
   make -C ngs-python install
 
   # build sra-tools
   cd ${INSTALLER_PATH}/ncbi/sra-tools
-  ./configure --with-hdf5-prefix=${SOFTWARE_PATH} --prefix=${SOFTWARE_PATH}
+  ./configure --with-hdf5-prefix=${SOFTWARE_PATH} --prefix=${SOFTWARE_PATH} --prefix
   make -j4
   make install
 

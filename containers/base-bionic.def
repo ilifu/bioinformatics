@@ -23,9 +23,9 @@ Include: software-properties-common
   mkdir -p /software /installer
   export INSTALLER_PATH=/installer
   export SOFTWARE_PATH=/software
-
+  export DEBIAN_FRONTEND=noninteractive
   # Update apt
-  apt-get update -y && apt-get upgrade -y
+  apt-get update -y && apt-get dist-upgrade -y
 
   # Add repositories
   apt-add-repository universe
@@ -33,7 +33,7 @@ Include: software-properties-common
   apt-get update
 
   # Install common stuff
-  apt-get install -y locales screen tmux tcsh zsh lftp nano emacs
+  DEBIAN_FRONTEND=noninteractive apt-get install -y locales screen tmux tcsh zsh lftp nano emacs
 
   # Configure locale
   echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
