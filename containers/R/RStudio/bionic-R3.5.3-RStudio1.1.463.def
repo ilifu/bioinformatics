@@ -23,10 +23,10 @@ From: R/bionic-R3.5.3.simg
   export RSTUDIO_VERSION=1.1.463
 
   # Update apt
-  apt-get update -y && apt-get upgrade -y
+  apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 
   # Install requirements
-  apt-get install -y \
+  DEBIAN_FRONTEND=noninteractive apt-get install -y \
     ca-certificates \
     gdebi-core \
     systemd \
