@@ -149,6 +149,7 @@ From: bionic_compile.simg
   PKG_CONFIG_PATH=${SOFTWARE_PATH}/lib/pkgconfig:${PKG_CONFIG_PATH}
   export SRA_TOOLS_VERSION=2.9.6
   PATH=${SOFTWARE_PATH}/bin:${SOFTWARE_PATH}/ncbi/sra-tools/bin:${PATH}
+  export DEBIAN_FRONTEND=noninteractive
 
   # Update apt
   apt-get update -y && apt-get upgrade -y
