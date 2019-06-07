@@ -1,5 +1,5 @@
 Bootstrap: localimage
-From: bionic.simg
+From: bionic_compile.simg
 
 %labels
   Maintainer Dane Kennedy

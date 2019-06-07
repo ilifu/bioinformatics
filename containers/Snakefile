@@ -1,6 +1,7 @@
 SB = 'singularity build'
 
-BASES = ['bionic', 'bionic_compile']
+BASES = ['bionic']
+COMPILE = ['bionic_compile']
 RS = ['bionic-R3.6.0']
 RSTUDIOS = ['bionic-R3.6.0-RStudio1.2.1335']
 SRA_TOOLS = ['bionic_compile-sra_tools2.9.6']
@@ -8,6 +9,7 @@ SRA_TOOLS = ['bionic_compile-sra_tools2.9.6']
 rule all:
     input:
         [f'{base}.simg' for base in BASES],
+        [f'{compile}.simg' for compile in COMPILE],
         [f'R/{r}.simg' for r in RS],
         [f'R/RStudio/{rstudio}.simg' for rstudio in RSTUDIOS],
         [f'sra_tools/{sra_tool}.simg' for sra_tool in SRA_TOOLS]
@@ -15,9 +17,11 @@ rule all:
 
 rule base_images:
     input:
-        'base-{base}.def',
+        'base-{base}.def'
     output:
-        '{base}.simg',
+        '{base}.simg'
+    wildcard_constraints:
+        base='[^_]+'
     shell:
         '{SB} {output} {input}'
 
@@ -25,10 +29,23 @@ rule all_bases:
     input:
         [f'{base}.simg' for base in BASES]
 
+rule compile_images:
+    input:
+        compile='base-{base}_compile.def',
+        base='{base}.simg'
+    output:
+        '{base}_compile.simg'
+    shell:
+        '{SB} {output} {input.compile}'
+
+rule all_compile:
+    input:
+        [f'{compile}.simg' for compile in COMPILE]
+
 rule R:
     input:
         rs='R/{base}-{r_version}.def',
-        base='{base}.simg'
+        base='{base}_compile.simg'
     output:
         'R/{base}-{r_version}.simg'
     wildcard_constraints:
