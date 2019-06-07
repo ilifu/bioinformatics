@@ -23,7 +23,6 @@ From: R/bionic-R3.6.0.simg
 # Thanks to nickjer for this! https://github.com/nickjer/singularity-rstudio/blob/master/Singularity.3.6.0
 
 %files
-#  rstudio_auth.sh /usr/lib/rstudio-server/bin/rstudio_auth
   R/RStudio/rstudio_auth.sh /usr/lib/rstudio-server/bin/rstudio_auth
 
 %post
@@ -48,8 +47,8 @@ From: R/bionic-R3.6.0.simg
   gdebi -n rstudio-server-${RSTUDIO_VERSION}-amd64.deb
 
   # Set up config
-  echo "allow   127.0.0.1\ndeny    all" >> /etc/rstudio/ip-rules
-  echo "www-address=127.0.0.1" >> /etc/rstudio/rserver.conf
+#  echo "allow   127.0.0.1\ndeny    all" >> /etc/rstudio/ip-rules
+#  echo "www-address=127.0.0.1" >> /etc/rstudio/rserver.conf
 
   # Cleanup the container
   apt-get clean
