@@ -17,6 +17,14 @@ From: R/bionic-R3.6.0.simg
   export PATH=/usr/lib/rstudio-server/bin:${PATH}
   export RSTUDIO_VERSION=1.2.1335
 
+# Thanks to nickjer for this! https://github.com/nickjer/singularity-rstudio/blob/master/Singularity.3.6.0
+
+%setup
+  install -Dv \
+    R/RStudio/rstudio_auth.sh \
+    ${SINGULARITY_ROOTFS}/usr/lib/rstudio-server/bin/rstudio_auth
+
+
 %post
   # Create Installation Directories and export paths. This is needed as part of post.
   # %environment scriptlet does not define these paths during %post, only after.
