@@ -8,10 +8,13 @@ From: R/bionic-R3.6.0.simg
   RStudio 1.2.1335
 
 %apprun rserver
-  exec rserver "${@}"
+  exec rserver --auth-none 0 --auth-pam-helper rstudio_auth "${@}"
+
+%apprun r
+  exec R "${@}"
 
 %runscript
-  exec rserver "${@}"
+  exec rserver --auth-none 0 --auth-pam-helper rstudio_auth "${@}"
 
 %environment
   export PATH=/usr/lib/rstudio-server/bin:${PATH}
@@ -19,11 +22,9 @@ From: R/bionic-R3.6.0.simg
 
 # Thanks to nickjer for this! https://github.com/nickjer/singularity-rstudio/blob/master/Singularity.3.6.0
 
-%setup
-  install -Dv \
-    R/RStudio/rstudio_auth.sh \
-    ${SINGULARITY_ROOTFS}/usr/lib/rstudio-server/bin/rstudio_auth
-
+%files
+#  rstudio_auth.sh /usr/lib/rstudio-server/bin/rstudio_auth
+  R/RStudio/rstudio_auth.sh /usr/lib/rstudio-server/bin/rstudio_auth
 
 %post
   # Create Installation Directories and export paths. This is needed as part of post.
