@@ -1,9 +1,3 @@
-[submodule "containers/R/singularity-rstudio"]
-	path = containers/R/singularity-rstudio
-	url = git@github.com:nickjer/singularity-rstudio.git
-[submodule "containers/R/singularity-r"]
-	path = containers/R/singularity-r
-	url = git@github.com:nickjer/singularity-r.git
 [submodule "containers/sra_tools/sra-tools"]
 	path = containers/sra_tools/sra-tools
 	url = https://github.com/ncbi/sra-tools.git
