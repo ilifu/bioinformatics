@@ -190,7 +190,7 @@ From: bionic_compile.simg
 
   # build sra-tools
   cd ${INSTALLER_PATH}/ncbi/sra-tools
-  ./configure --with-hdf5-prefix=${SOFTWARE_PATH} --prefix=${SOFTWARE_PATH} --prefix
+  ./configure --with-hdf5-prefix=${SOFTWARE_PATH} --prefix=${SOFTWARE_PATH}
   make -j4
   make install
 
