@@ -64,7 +64,9 @@ From: bionic.simg
   echo "R_LIBS_SITE=/library:\${R_LIBS_SITE}" >> /usr/lib/R/etc/Renviron.site
 
   # install a few basics
-  Rscript -e 'install.packages(c("shiny", "tidyverse", "devtools"))'
+  Rscript -e 'install.packages(c("shiny", "tidyverse", "devtools", "mgcv", \
+    "nlme", "shiny", "rmarkdown", "xtable", "Rcpp", "data.table", "parallel" \
+    "mgcv", "DBI"))'
   Rscript -e 'update.packages(ask=FALSE)'
   Rscript -e 'install.packages("BiocManager")'
   Rscript -e 'BiocManager::install(ask=FALSE)'
