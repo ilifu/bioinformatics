@@ -143,14 +143,15 @@ From: bionic_compile.simg
 #  export R_VERSION=3.5.3
   export INSTALLER_PATH=/installer
   export SOFTWARE_PATH=/software
-  LD_LIBRARY_PATH=${SOFTWARE_PATH}/lib64:${SOFTWARE_PATH}/lib:${LD_LIBRARY_PATH}
-  LIBRARY_PATH=${SOFTWARE_PATH}/lib64${SOFTWARE_PATH}/lib:${LIBRARY_PATH}
-  CPATH=${SOFTWARE_PATH}/include:${CPATH}
-  INCLUDE=${SOFTWARE_PATH}/include:${INCLUDE}
-  PKG_CONFIG_PATH=${SOFTWARE_PATH}/lib/pkgconfig:${PKG_CONFIG_PATH}
+  export LD_LIBRARY_PATH=${SOFTWARE_PATH}/lib64:${SOFTWARE_PATH}/lib:${LD_LIBRARY_PATH}
+  export LIBRARY_PATH=${SOFTWARE_PATH}/lib64${SOFTWARE_PATH}/lib:${LIBRARY_PATH}
+  export CPATH=${SOFTWARE_PATH}/include:${CPATH}
+  export INCLUDE=${SOFTWARE_PATH}/include:${INCLUDE}
+  export PKG_CONFIG_PATH=${SOFTWARE_PATH}/lib/pkgconfig:${PKG_CONFIG_PATH}
   export SRA_TOOLS_VERSION=2.9.6
-  PATH=${SOFTWARE_PATH}/bin:${SOFTWARE_PATH}/ncbi/sra-tools/bin:${PATH}
+  export PATH=${SOFTWARE_PATH}/bin:${SOFTWARE_PATH}/ncbi/sra-tools/bin:${PATH}
   export DEBIAN_FRONTEND=noninteractive
+  export VDB_SRCDIR=${INSTALLER_PATH}/ncbi/ncbi-vdb 
 
   # Update apt
   apt-get update -y && apt-get upgrade -y
@@ -192,13 +193,13 @@ From: bionic_compile.simg
   make install
 
   # build sra-tools
-#  cd ${INSTALLER_PATH}/ncbi/sra-tools
-#  ./configure --with-hdf5-prefix=${SOFTWARE_PATH} --prefix=${SOFTWARE_PATH}
-#  make -j4
-#  make install
+  cd ${INSTALLER_PATH}/ncbi/sra-tools
+  ./configure --with-hdf5-prefix=${SOFTWARE_PATH} --prefix=${SOFTWARE_PATH}
+  make -j4
+  make install
 
   # Cleanup the container
-#  rm -rf ${INSTALLER_PATH}/ncbi
+  rm -rf ${INSTALLER_PATH}/ncbi
 
   apt-get clean
   apt-get autoclean
