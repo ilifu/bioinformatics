@@ -129,6 +129,7 @@ From: bionic_compile.simg
   export PATH=${SOFTWARE_PATH}/bin:${SOFTWARE_PATH}/ncbi/sra-tools/bin:${PATH}
   export SRA_TOOLS_VERSION=2.9.6
   export LD_LIBRARY_PATH=${SOFTWARE_PATH}/lib64:${LD_LIBRARY_PATH}
+  export INCLUDE=${SOFTWARE_PATH}/include
 
 %setup
   mkdir -p ${SINGULARITY_ROOTFS}/installer/ncbi
@@ -145,7 +146,7 @@ From: bionic_compile.simg
   LD_LIBRARY_PATH=${SOFTWARE_PATH}/lib64:${SOFTWARE_PATH}/lib:${LD_LIBRARY_PATH}
   LIBRARY_PATH=${SOFTWARE_PATH}/lib64${SOFTWARE_PATH}/lib:${LIBRARY_PATH}
   CPATH=${SOFTWARE_PATH}/include:${CPATH}
-  INCLUDE=${SOFTWARE_PATH}/include/:${INCLUDE}
+  INCLUDE=${SOFTWARE_PATH}/include:${INCLUDE}
   PKG_CONFIG_PATH=${SOFTWARE_PATH}/lib/pkgconfig:${PKG_CONFIG_PATH}
   export SRA_TOOLS_VERSION=2.9.6
   PATH=${SOFTWARE_PATH}/bin:${SOFTWARE_PATH}/ncbi/sra-tools/bin:${PATH}
@@ -153,7 +154,7 @@ From: bionic_compile.simg
 
   # Update apt
   apt-get update -y && apt-get upgrade -y
-  apt-get install -y libfuse2 libfuse-dev
+  apt-get install -y libfuse2 libfuse-dev pkg-config
 
   # build ncbi-vdb
   cd ${INSTALLER_PATH}/ncbi/ncbi-vdb
@@ -164,10 +165,10 @@ From: bionic_compile.simg
   # build ngs
   cd ${INSTALLER_PATH}/ncbi/ngs
   ./configure  --prefix=${SOFTWARE_PATH}
-  make -j4
-  make -j4 -C ngs-sdk
-  make -j4 -C ngs-java
-  make -j4 -C ngs-python
+  make
+  make -C ngs-sdk
+  make -C ngs-java
+  make -C ngs-python
   make -C ngs-sdk install
   make -C ngs-java install
   make -C ngs-python install
@@ -176,30 +177,31 @@ From: bionic_compile.simg
     # build ncbi-vdb  # yes again -- there seem to be some circular dependencies?
     cd ${INSTALLER_PATH}/ncbi/ncbi-vdb
     ./configure --with-hdf5-prefix=${SOFTWARE_PATH}  --prefix=${SOFTWARE_PATH}
-    make -j4
+    make
     make install
 
   cd ${INSTALLER_PATH}/ncbi/ngs
   make clean
   ./configure  --prefix=${SOFTWARE_PATH}
-  make -j4 -C ngs-sdk
-  make -j4 -C ngs-java
-  make -j4 -C ngs-python
+  make -C ngs-sdk
+  make -C ngs-java
+  make -C ngs-python
   make -C ngs-sdk install
   make -C ngs-java install
   make -C ngs-python install
-
-  # build sra-tools
-  cd ${INSTALLER_PATH}/ncbi/sra-tools
-  ./configure --with-hdf5-prefix=${SOFTWARE_PATH} --prefix=${SOFTWARE_PATH}
-  make -j4
   make install
 
+  # build sra-tools
+#  cd ${INSTALLER_PATH}/ncbi/sra-tools
+#  ./configure --with-hdf5-prefix=${SOFTWARE_PATH} --prefix=${SOFTWARE_PATH}
+#  make -j4
+#  make install
+
   # Cleanup the container
-  rm -rf ${INSTALLER_PATH}/ncbi
+#  rm -rf ${INSTALLER_PATH}/ncbi
 
   apt-get clean
   apt-get autoclean
 
 %test
-  /software/bin/fastq-dump | grep -q "2.9.6"
+#  /software/bin/fastq-dump | grep -q "2.9.6"
