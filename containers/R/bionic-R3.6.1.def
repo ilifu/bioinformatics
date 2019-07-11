@@ -3,10 +3,10 @@ From: bionic_compile.simg
 
 %labels
   Maintainer Dane Kennedy
-  R_Version 3.6.0
+  R_Version 3.6.1
 
 #help
-  R 3.6.0 definition file.
+  R 3.6.1 definition file.
 
 %apprun R
   exec R "${@}"
@@ -18,12 +18,12 @@ From: bionic_compile.simg
   exec R "${@}"
 
 %environment
-  export R_VERSION=3.6.0
+  export R_VERSION=3.6.1
 
 %post
   # Create Installation Directories and export paths. This is needed as part of post.
   # %environment scriptlet does not define these paths during %post, only after.
-  export R_VERSION=3.6.0
+  export R_VERSION=3.6.1
   export DEBIAN_FRONTEND=noninteractive
 
   # Update apt
@@ -56,7 +56,7 @@ From: bionic_compile.simg
     libcairo2-dev \
     libxt-dev \
 
-  apt-mark hold r-base*
+  apt-mark hold r-base*     
 
   # Add a default CRAN mirror
   echo "options(repos = c(CRAN = 'https://cran.rstudio.com/'), download.file.method = 'libcurl')" >> /usr/lib/R/etc/Rprofile.site
@@ -71,6 +71,7 @@ From: bionic_compile.simg
   Rscript -e 'update.packages(ask=FALSE)'
   Rscript -e 'install.packages("BiocManager")'
   Rscript -e 'BiocManager::install(ask=FALSE)'
+  Rscript -e 'BiocManager::install(c("dada2"), version="3.9", ask=FALSE)'
 
   # Cleanup the container
   apt-get clean

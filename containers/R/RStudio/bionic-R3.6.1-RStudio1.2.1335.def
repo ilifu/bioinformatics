@@ -1,5 +1,5 @@
 Bootstrap: localimage
-From: R/bionic-R3.6.0.simg
+From: R/bionic-R3.6.1.simg
 
 %labels
   Maintainer Dane Kennedy
