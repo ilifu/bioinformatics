@@ -8,13 +8,27 @@ From: R/bionic-R3.6.1.simg
   RStudio 1.2.1335
 
 %apprun rserver
-  exec rserver --auth-none 0 --auth-pam-helper rstudio_auth --secure-cookie-key-file /tmp/rstudio-server-${USER}/secure-cookie.key "${@}"
+  if [ -z "${RSTUDIO_PASSWORD}" ]; then
+    echo "Remember to set the environment variable RSTUDIO_PASSWORD"
+    exit 1
+  else
+    PORT=$( python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()' )
+    echo "Running rserver on port ${PORT}"
+    exec rserver --auth-none 0 --auth-pam-helper rstudio_auth --secure-cookie-key-file /tmp/rstudio-server-${USER}/secure-cookie.key --www-port ${PORT} "${@}"
+  fi
 
 %apprun r
   exec R "${@}"
 
 %runscript
-  exec rserver --auth-none 0 --auth-pam-helper rstudio_auth --secure-cookie-key-file /tmp/rstudio-server-${USER}/secure-cookie.key "${@}"
+  if [ -z "${RSTUDIO_PASSWORD}" ]; then
+    echo "Remember to set the environment variable RSTUDIO_PASSWORD"
+    exit 1
+  else
+    PORT=$( python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()' )
+    echo "Running rserver on port ${PORT}"
+    exec rserver --auth-none 0 --auth-pam-helper rstudio_auth --secure-cookie-key-file /tmp/rstudio-server-${USER}/secure-cookie.key --www-port ${PORT} "${@}"
+  fi
 
 %environment
   export PATH=/usr/lib/rstudio-server/bin:${PATH}
