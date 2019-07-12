@@ -65,7 +65,7 @@ From: R/bionic-R3.6.1.simg
 
   Rscript -e 'install.packages("BiocManager")'
   Rscript -e 'BiocManager::install(ask=FALSE)'
-  Rscript -e 'BiocManager::install(c("dada2"), version="3.9", ask=FALSE)'
+  Rscript -e 'BiocManager::install(c("dada2"), version="3.9", ask=FALSE, update=TRUE)'
 
   # Set up config
 #  echo "allow   127.0.0.1\ndeny    all" >> /etc/rstudio/ip-rules

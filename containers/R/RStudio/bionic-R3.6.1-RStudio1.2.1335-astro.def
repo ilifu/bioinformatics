@@ -64,6 +64,7 @@ From: R/bionic-R3.6.1.simg
   gdebi -n rstudio-server-${RSTUDIO_VERSION}-amd64.deb
 
   Rscript -e 'install.packages(c("astro", "astrodatR", "mice", "nnet", "party", "ProFit", "ProFound", "randomForest", "rpart"))'
+  Rscript -e 'update.packages(ask=FALSE)'
 
   # Set up config
 #  echo "allow   127.0.0.1\ndeny    all" >> /etc/rstudio/ip-rules
