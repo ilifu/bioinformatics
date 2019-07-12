@@ -2,8 +2,8 @@ SB = 'singularity build'
 
 BASES = ['bionic']
 COMPILE = ['bionic_compile']
-RS = ['bionic-R3.6.0', 'bionic-R3.6.1']
-RSTUDIOS = ['bionic-R3.6.0-RStudio1.2.1335', 'bionic-R3.6.1-RStudio1.2.1335']
+RS = ['bionic-R3.6.1']
+RSTUDIOS = ['bionic-R3.6.1-RStudio1.2.1335-bio','bionic-R3.6.1-RStudio1.2.1335-astro']
 SRA_TOOLS = ['bionic_compile-sra_tools2.9.6']
 
 rule all:
@@ -61,10 +61,10 @@ rule all_R:
 
 rule RStudio:
     input:
-        rstudios='R/RStudio/{base}-{r_version}-{rstudio}.def',
+        rstudios='R/RStudio/{base}-{r_version}-{rstudio}-{variant}.def',
         rs='R/{base}-{r_version}.simg'
     output:
-        'R/RStudio/{base}-{r_version}-{rstudio}.simg'
+        'R/RStudio/{base}-{r_version}-{rstudio}-{variant}.simg'
     wildcard_constraints:
         base='[^-]+',
         r_version='[^-]+',
