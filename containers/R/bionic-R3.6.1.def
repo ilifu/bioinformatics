@@ -36,6 +36,7 @@ From: bionic_compile.simg
     texlive-fonts-extra \
     texlive-extra-utils \
     texlive-latex-extra \
+    texlive-xetex \
 
   # Add R repositories
   echo "deb http://cran.r-project.org/bin/linux/ubuntu bionic-cran35/" > /etc/apt/sources.list.d/r.list
@@ -69,9 +70,9 @@ From: bionic_compile.simg
   Rscript -e 'install.packages(c("shiny", "tidyverse", "devtools", "mgcv",
     "nlme", "shiny", "rmarkdown", "xtable", "Rcpp", "data.table", "DBI"))'
   Rscript -e 'update.packages(ask=FALSE)'
-  Rscript -e 'install.packages("BiocManager")'
-  Rscript -e 'BiocManager::install(ask=FALSE)'
-  Rscript -e 'BiocManager::install(c("dada2"), version="3.9", ask=FALSE)'
+#  Rscript -e 'install.packages("BiocManager")'
+#  Rscript -e 'BiocManager::install(ask=FALSE)'
+#  Rscript -e 'BiocManager::install(c("dada2"), version="3.9", ask=FALSE)'
 
   # Cleanup the container
   apt-get clean
