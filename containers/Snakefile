@@ -5,6 +5,7 @@ COMPILE = ['bionic_compile']
 RS = ['bionic-R3.6.1']
 RSTUDIOS = ['bionic-R3.6.1-RStudio1.2.1335-bio','bionic-R3.6.1-RStudio1.2.1335-astro']
 SRA_TOOLS = ['bionic_compile-sra_tools2.9.6']
+HTSLIBS = ['bionic-htslib1.9']
 
 rule all:
     input:
@@ -91,6 +92,25 @@ rule sra_tools:
 rule all_sra_tools:
     input:
         [f'sra_tools/{sra_tools_version}.simg' for sra_tools_version in SRA_TOOLS]
+
+rule htslib:
+    input:
+        htslibs='htslib/{base}-{htslib_version}.def',
+        base='{base}_compile.simg'
+    output:
+        'htslib/{base}-{htslib_version}.simg'
+    wildcard_constraints:
+        base='[^-]+',
+        htslib_version='[^-]+'
+    shell:
+        '{SB} {output} {input.htslibs}'
+
+rule all_htslib:
+    input:
+        [f'htslib/{htslib_version}.simg' for htslib_version in HTSLIBS]
+
+
+
 
 #rule def_to_simg:
 #    """compile single .def file to single .simg file"""

@@ -1,0 +1,110 @@
+Bootstrap: localimage
+From: bionic_compile.simg
+
+%labels
+  Maintainer Dane Kennedy
+  htslib and bcftools 1.9
+
+%help
+  htslib and bcftool 1.9
+
+%apprun bcftools
+  exec /software/bin/bcftools "${@}"
+
+%apprun bgzip
+  exec /software/bin/bgzip "${@}"
+
+%apprun color-chrs.pl
+  exec /software/bin/color-chrs.pl "${@}"
+
+%apprun guess-ploidy.py
+  exec /software/bin/guess-ploidy.py "${@}"
+
+%apprun htsfile
+  exec /software/bin/htsfile "${@}"
+
+%apprun plot-roh.py
+  exec /software/bin/plot-roh.py "${@}"
+
+%apprun plot-vcfstats
+  exec /software/bin/plot-vcfstats "${@}"
+
+%apprun run-roh.pl
+  exec /software/bin/run-roh.pl "${@}"
+
+%apprun tabix
+  exec /software/bin/tabix "${@}"
+
+%apprun vcfutils.pl
+  exec /software/bin/vcfutils.pl "${@}"
+
+%environment
+  VERSION=1.9
+  SOFTWARE_PATH=/software
+  PATH=${SOFTWARE_PATH}/bin:${PATH}
+  LD_LIBRARY_PATH=${SOFTWARE_PATH}/lib:${LD_LIBRARY_PATH}
+  INCLUDE=${SOFTWARE_PATH}/include:${INCLUDE}
+  MANPATH=${SOFTWARE_PATH}/share/man:${MANPATH}
+  PKG_CONFIG_PATH=${SOFTWARE_PATH}/lib/pkgconfig:${PKG_CONFIG_PATH}
+
+
+%post
+  # Create Installation Directories and export paths. This is needed as part of post.
+  # %environment scriptlet does not define these paths during %post, only after.
+  export DEBIAN_FRONTEND=noninteractive
+  export VERSION=1.9
+  export SOFTWARE_PATH=/software
+
+  # Update apt
+  apt-get update -y && apt-get dist-upgrade -y
+  apt-get install -y \
+    zlib1g \
+    zlib1g-dev \
+    gsl-bin \
+    libgsl-dev \
+    libperl-dev \
+    libbz2-dev \
+    liblzma-dev \
+    libcurl4 \
+    libcurl4-openssl-dev \
+    libcrypto++6 \
+    libcrypto++-dev \
+    pkg-config \
+    perl \
+    wget \
+
+  # Download htslib and bcftools
+  cd /tmp
+  wget --quiet https://github.com/samtools/bcftools/releases/download/1.9/bcftools-${VERSION}.tar.bz2
+  wget --quiet https://github.com/samtools/htslib/releases/download/1.9/htslib-${VERSION}.tar.bz2
+
+  # Install htslib
+  tar -jxf htslib-1.9.tar.bz2
+  cd htslib-1.9
+  ./configure --prefix=${SOFTWARE_PATH}
+  make
+  make install
+
+  # Install bcftools
+  cd /tmp
+  tar -jxf bcftools-1.9.tar.bz2
+  cd bcftools-1.9
+  ./configure --prefix=${SOFTWARE_PATH}
+  make
+  make install
+
+  # clean up tmp
+  cd /tmp
+  rm -rf htslib-1.9.tar.bz2 htslib-1.9 bcftools-1.9
+
+  # clean up apt
+  apt -y autoremove
+
+
+%test
+  SOFTWARE_PATH=/software
+  VERSION=1.9
+  ${SOFTWARE_PATH}/bin/bcftools --version | grep "bcftools ${VERSION}"
+  ${SOFTWARE_PATH}/bin/tabix --version | grep "tabix (htslib) ${VERSION}"
+
+
