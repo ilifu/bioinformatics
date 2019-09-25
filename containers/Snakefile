@@ -3,7 +3,11 @@ SB = 'singularity build'
 BASES = ['bionic']
 COMPILE = ['bionic_compile']
 RS = ['bionic-R3.6.1']
-RSTUDIOS = ['bionic-R3.6.1-RStudio1.2.1335-bio','bionic-R3.6.1-RStudio1.2.1335-astro']
+RSTUDIOS = [
+  'bionic-R3.6.1-RStudio1.2.1335-astro',
+  'bionic-R3.6.1-RStudio1.2.1335-bio',
+  'bionic-R3.6.1-RStudio1.2.5001-bio',
+]
 SRA_TOOLS = ['bionic_compile-sra_tools2.9.6']
 HTSLIBS = ['bionic-htslib1.9']
 
