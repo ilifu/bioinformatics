@@ -39,67 +39,67 @@ From: bionic_compile.simg
   exec /software/bin/vcfutils.pl "${@}"
 
 %apprun ace2sam
-  exec /software/bin/ace2sam
+  exec /software/bin/ace2sam "${@}"
 
 %apprun blast2sam.pl
-  exec /software/bin/blast2sam.pl
+  exec /software/bin/blast2sam.pl "${@}"
 
 %apprun bowtie2sam.pl
-  exec /software/bin/bowtie2sam.pl
+  exec /software/bin/bowtie2sam.pl "${@}"
 
 %apprun export2sam.pl
-  exec /software/bin/export2sam.pl
+  exec /software/bin/export2sam.pl "${@}"
 
 %apprun interpolate_sam.pl
-  exec /software/bin/interpolate_sam.pl
+  exec /software/bin/interpolate_sam.pl "${@}"
 
 %apprun maq2sam-long
-  exec /software/bin/maq2sam-long
+  exec /software/bin/maq2sam-long "${@}"
 
 %apprun maq2sam-short
-  exec /software/bin/maq2sam-short
+  exec /software/bin/maq2sam-short "${@}"
 
 %apprun md5fa
-  exec /software/bin/md5fa
+  exec /software/bin/md5fa "${@}"
 
 %apprun md5sum-lite
-  exec /software/bin/md5sum-lite
+  exec /software/bin/md5sum-lite "${@}"
 
 %apprun novo2sam.pl
-  exec /software/bin/novo2sam.pl
+  exec /software/bin/novo2sam.pl "${@}"
 
 %apprun plot-bamstats
-  exec /software/bin/plot-bamstats
+  exec /software/bin/plot-bamstats "${@}"
 
 %apprun psl2sam.pl
-  exec /software/bin/psl2sam.pl
+  exec /software/bin/psl2sam.pl "${@}"
 
 %apprun sam2vcf.pl
-  exec /software/bin/sam2vcf.pl
+  exec /software/bin/sam2vcf.pl "${@}"
 
 %apprun samtools
-  exec /software/bin/samtools
+  exec /software/bin/samtools "${@}"
 
 %apprun samtools.pl
-  exec /software/bin/samtools.pl
+  exec /software/bin/samtools.pl "${@}"
 
 %apprun seq_cache_populate.pl
-  exec /software/bin/seq_cache_populate.pl
+  exec /software/bin/seq_cache_populate.pl "${@}"
 
 %apprun soap2sam.pl
-  exec /software/bin/soap2sam.pl
+  exec /software/bin/soap2sam.pl "${@}"
 
 %apprun varfilter.py
-  exec /software/bin/varfilter.py
+  exec /software/bin/varfilter.py "${@}"
 
 %apprun wgsim
-  exec /software/bin/wgsim
+  exec /software/bin/wgsim "${@}"
 
 %apprun wgsim_eval.pl
-  exec /software/bin/wgsim_eval.pl
+  exec /software/bin/wgsim_eval.pl "${@}"
 
 %apprun zoom2sam.pl
-  exec /software/bin/zoom2sam.pl
+  exec /software/bin/zoom2sam.pl "${@}"
 
 
 %environment
