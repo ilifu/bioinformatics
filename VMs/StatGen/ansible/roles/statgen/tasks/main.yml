@@ -1,0 +1,3 @@
+---
+# tasks file for statgen
+- { include: tasks.yaml, become: yes, tags: "statgen" }

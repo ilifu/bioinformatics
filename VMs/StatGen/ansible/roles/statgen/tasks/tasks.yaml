@@ -1,0 +1,30 @@
+---
+- name: Install statgen docker images
+  block:
+    - name: Install Annovar image
+      docker_image:
+        name: statisticalgenetics/annovar:latest
+    - name: Install igv image
+        docker_image:
+          name: statisticalgenetics/igv:latest
+    - name: Install popgen image
+        docker_image:
+          name: statisticalgenetics/popgen:latest
+    - name: Install pseq image
+        docker_image:
+          name: statisticalgenetics/pseq:latest
+    - name: Install regression image
+        docker_image:
+          name: statisticalgenetics/regression:latest
+    - name: Install vat image
+        docker_image:
+          name: statisticalgenetics/vat:latest
+
+
+
+#docker pull statisticalgenetics/annovar:latest
+#docker pull statisticalgenetics/igv:latest
+#docker pull statisticalgenetics/popgen:latest
+#docker pull statisticalgenetics/pseq:latest
+#docker pull statisticalgenetics/regression:latest
+#docker pull statisticalgenetics/vat:latest
