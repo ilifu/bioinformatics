@@ -1,0 +1,8 @@
+---
+- hosts: base
+  roles:
+    - base
+
+- hosts: docker
+  roles:
+    - docker

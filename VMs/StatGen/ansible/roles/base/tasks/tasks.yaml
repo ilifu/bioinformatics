@@ -1,0 +1,47 @@
+---
+# tasks file for base
+- name: Update timezone
+  file:
+    src: /usr/share/zoneinfo/{{ timezone }}
+    dest: /etc/localtime
+    state: link
+  notify: update tzdata
+
+- name: Update / Install packages
+  block:
+    - name: Update existing packages / distribution
+      apt:
+        upgrade: dist
+        update-cache: yes
+      register: apt_res_dist_upgrade
+      retries: 3
+      delay: 15
+      until: apt_res_dist_upgrade is success
+
+    - name: Reboot the machine
+      reboot:
+        post_reboot_delay: 180
+      when: reboot_after_update == "yes"
+
+    - name: Install common packages
+      apt:
+        name:
+          - 'apt-transport-https'
+          - 'ca-certificates'
+          - 'curl'
+          - 'fail2ban'
+          - 'gnupg-agent'
+          - 'software-properties-common'
+        state: latest
+        update_cache: yes
+      register: apt_res_install_common
+      retries: 3
+      delay: 15
+      until: apt_res_install_common is success
+
+    - name: Remove old packages
+      apt:
+        autoremove: yes
+        autoclean: yes
+
+

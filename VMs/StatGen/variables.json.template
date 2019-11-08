@@ -1,0 +1,10 @@
+{
+    "image_name_prefix": "dane",
+    "image_name_suffix": "dev",
+    "flavor": "ilifu-B",
+    "base_image_name": "statgen-ubuntu18.04",
+    "source_image": "893c214e-c67f-4126-9c79-095f211a7ba2",
+    "networks": "be6e0a4d-ba41-4008-abad-c491c7367dad",
+    "floating_ip_network": "5d9cb3b0-2c89-499f-b416-55cbbb91d70c",
+    "security_groups": "295ee0f9-cdd5-4f41-baac-ce2e87c3d235"
+}
