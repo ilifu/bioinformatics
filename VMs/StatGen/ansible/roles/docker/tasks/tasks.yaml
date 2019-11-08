@@ -20,10 +20,11 @@
           - 'curl'
           - 'gnupg-agent'
           - 'software-properties-common'
+          - 'python-docker'
         state: latest
         update_cache: yes
       register: apt_res_install_docker_required
-      etries: 3
+      retries: 3
       delay: 15
       until: apt_res_install_docker_required is success
     - name: Add Docker apt key

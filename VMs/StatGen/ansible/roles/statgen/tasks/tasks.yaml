@@ -5,20 +5,20 @@
       docker_image:
         name: statisticalgenetics/annovar:latest
     - name: Install igv image
-        docker_image:
-          name: statisticalgenetics/igv:latest
+      docker_image:
+        name: statisticalgenetics/igv:latest
     - name: Install popgen image
-        docker_image:
-          name: statisticalgenetics/popgen:latest
+      docker_image:
+        name: statisticalgenetics/popgen:latest
     - name: Install pseq image
-        docker_image:
-          name: statisticalgenetics/pseq:latest
+      docker_image:
+        name: statisticalgenetics/pseq:latest
     - name: Install regression image
-        docker_image:
-          name: statisticalgenetics/regression:latest
+      docker_image:
+        name: statisticalgenetics/regression:latest
     - name: Install vat image
-        docker_image:
-          name: statisticalgenetics/vat:latest
+      docker_image:
+        name: statisticalgenetics/vat:latest
 
 
 

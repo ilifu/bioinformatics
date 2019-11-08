@@ -1,0 +1,54 @@
+{
+  "variables": {
+    "image_name_prefix": "dane",
+    "image_name_suffix": "dev",
+    "flavor": "ilifu-B",
+    "base_image_name": "statgen-base-ubuntu18.04",
+    "source_image": "893c214e-c67f-4126-9c79-095f211a7ba2",
+    "networks": "be6e0a4d-ba41-4008-abad-c491c7367dad",
+    "floating_ip_network": "5d9cb3b0-2c89-499f-b416-55cbbb91d70c",
+    "security_groups": "295ee0f9-cdd5-4f41-baac-ce2e87c3d235"
+  },
+
+  "builders": [
+    {
+      "type": "openstack",
+      "flavor": "{{user `flavor`}}",
+      "domain_name": "Default",
+      "ssh_username": "ubuntu",
+      "image_name": "{{user `image_name_prefix`}}-{{user `base_image_name`}}-{{user `image_name_suffix`}}",
+      "source_image": "{{user `source_image`}}",
+      "networks": "{{user `networks`}}",
+      "floating_ip_network": "{{user `floating_ip_network`}}",
+      "security_groups": "{{user `security_groups`}}",
+      "metadata":
+        {
+          "hw_disk_bus": "scsi",
+          "hw_qemu_guest_agent": "yes",
+          "hw_rng_model": "virtio",
+          "hw_scsi_model": "virtio-scsi",
+          "hw_vif_model": "e1000"
+        }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sudo DEBIAN_FRONTEND=noninteractive apt-get update",
+        "sudo DEBIAN_FRONTEND=noninteractive apt-get -y install python3"
+      ]
+    },
+    {
+      "type": "ansible",
+      "groups": ["base", "docker"],
+      "user": "ubuntu",
+      "playbook_file": "./ansible/site.yaml",
+      "ansible_env_vars": [
+        "ANSIBLE_SSH_ARGS='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o AddKeysToAgent=no -o IdentitiesOnly=yes'"
+      ]
+
+    }
+  ]
+}
+

@@ -6,3 +6,6 @@
 - hosts: docker
   roles:
     - docker
+- hosts: statgen
+  roles:
+    - statgen
