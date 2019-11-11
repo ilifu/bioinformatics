@@ -1,0 +1,44 @@
+Bootstrap: localimage
+From: bionic_compile.simg
+
+%labels
+  Maintainer Dane Kennedy
+  Java 1.8.0_221
+
+#help
+  JDK 1.8.0_221
+
+%environment
+  export JAVA_HOME=/software/jdk1.8.0_221
+  export SOFTWARE_PATH=/software
+  export PATH=${JAVA_HOME}/bin:${PATH}
+
+%files
+  /home/dane/dev/ilifu/bioinformatics/containers/java/jdk-8u221-linux-x64.tar.gz /software/
+
+%post
+  # Create Installation Directories and export paths. This is needed as part of post.
+  # %environment scriptlet does not define these paths during %post, only after.
+  export DEBIAN_FRONTEND=noninteractive
+  export SOFTWARE_PATH=/software
+
+  # Update apt
+  apt-get update -y && apt-get dist-upgrade -y
+  apt-get install -y \
+    zlib1g \
+    zlib1g-dev \
+
+  cd /software
+  tar -zxf jdk-8u221-linux-x64.tar.gz
+
+
+  # Cleanup the container
+  apt-get clean
+  apt-get autoclean
+
+%test
+  export JAVA_HOME=/software/jdk1.8.0_221
+  export SOFTWARE_PATH=/software
+  export PATH=${JAVA_HOME}/bin:${PATH}
+  java -version 2>&1 | grep "1.8.0_221-b11"
+

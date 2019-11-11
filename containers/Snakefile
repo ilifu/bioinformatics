@@ -10,6 +10,7 @@ RSTUDIOS = [
 ]
 SRA_TOOLS = ['bionic_compile-sra_tools2.9.6']
 HTSLIBS = ['bionic-htslib1.9']
+JAVAS = ['bionic-jdk-8u221']
 
 rule all:
     input:
@@ -112,6 +113,19 @@ rule htslib:
 rule all_htslib:
     input:
         [f'htslib/{htslib_version}.simg' for htslib_version in HTSLIBS]
+
+rule java:
+    input:
+        javas='java/{base}-{java_version}.def',
+        base='{base}_compile.simg'
+    output:
+        'java/{base}-{java_version}.simg'
+    wildcard_constraints:
+        base='[^-]+',
+        java_version='[^-]+'
+    shell:
+      '{SB} {output} {input.javas}'
+
 
 
 
