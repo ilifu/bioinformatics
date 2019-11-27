@@ -71,12 +71,21 @@ From: bionic_compile.simg
   echo "R_LIBS_SITE=/library:\${R_LIBS_SITE}" >> /usr/lib/R/etc/Renviron.site
 
   # install a few basics
-  Rscript -e 'install.packages(c("shiny", "tidyverse", "devtools", "mgcv",
-    "nlme", "shiny", "rmarkdown", "xtable", "Rcpp", "data.table", "DBI"))'
+  Rscript -e 'install.packages(
+    c(
+      "data.table",
+      "devtools",
+      "DBI",
+      "mgcv",
+      "nlme",
+      "pacman",
+      "rmarkdown",
+      "Rcpp",
+      "shiny",
+      "tidyverse",
+      "xtable"
+    ))'
   Rscript -e 'update.packages(ask=FALSE)'
-#  Rscript -e 'install.packages("BiocManager")'
-#  Rscript -e 'BiocManager::install(ask=FALSE)'
-#  Rscript -e 'BiocManager::install(c("dada2"), version="3.9", ask=FALSE)'
 
   # Cleanup the container
   apt-get clean
