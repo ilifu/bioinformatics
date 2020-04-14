@@ -9,8 +9,8 @@ From: bionic.simg
   Base singularity definition file, to create bionic-compile.simg, which can then be used for more specific containers that require compiling from source.
 
 %files
-  extra/hdf5-1.10.5.tar.gz /installer/hdf5-1.10.5.tar.gz
-  extra/openmpi-4.0.1.tar.bz2 /installer/openmpi-4.0.1.tar.bz2
+  extra/hdf5-1.12.0.tar.gz /installer/hdf5-1.12.0.tar.gz
+  extra/openmpi-4.0.3.tar.bz2 /installer/openmpi-4.0.3.tar.bz2
 
 %environment
   export INSTALLER_PATH=/installer
@@ -72,8 +72,8 @@ From: bionic.simg
   # install other tools
   # openmpi
   cd /installer
-  tar -jxf openmpi-4.0.1.tar.bz2
-  cd openmpi-4.0.1
+  tar -jxf openmpi-4.0.3.tar.bz2
+  cd openmpi-4.0.3
   ./configure --enable-mpi-java --with-slurm --prefix=${SOFTWARE_PATH}
   make -j4
 #  make check
@@ -82,8 +82,8 @@ From: bionic.simg
 
   # hdf5
   cd /installer
-  tar -zxf hdf5-1.10.5.tar.gz
-  cd hdf5-1.10.5
+  tar -zxf hdf5-1.12.0.tar.gz
+  cd hdf5-1.12.0
   ./configure --enable-parallel --prefix=${SOFTWARE_PATH}
   make -j4
 #  make check
