@@ -34,8 +34,11 @@ From: bionic_compile.simg
     texlive \
     texlive-extra-utils \
     texlive-fonts-extra \
-    texlive-extra-utils \
     texlive-latex-extra \
+    texlive-pictures \
+    texlive-pstricks \
+    texlive-publishers \
+    texlive-science \
     texlive-xetex \
     ca-certificates \
     gdebi-core \
@@ -56,10 +59,12 @@ From: bionic_compile.simg
     r-base-html=${R_VERSION}* \
     r-doc-html=${R_VERSION}* \
     libcurl4-openssl-dev \
+    libnetcdf-dev \
     libssl-dev \
     libxml2-dev \
     libcairo2-dev \
     libxt-dev \
+    patchelf \
 
   apt-mark hold r-base*     
 
