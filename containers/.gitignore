@@ -1,4 +1,5 @@
 *.simg
+*.sif
 .snakemake
 venv
 .Rhistory
