@@ -5,8 +5,8 @@ COMPILE = ['bionic_compile']
 RS = ['bionic-R3.6.1', 'bionic-R3.6.3']
 RSTUDIOS = [
   'bionic-R3.6.1-RStudio1.2.1335-astro',
-  'bionic-R3.6.1-RStudio1.2.1335-bio',
-  'bionic-R3.6.1-RStudio1.2.5001-bio',
+#   'bionic-R3.6.1-RStudio1.2.1335-bio',
+#   'bionic-R3.6.1-RStudio1.2.5001-bio',
   'bionic-R3.6.3-RStudio1.2.5042-bio',
 ]
 SRA_TOOLS = ['bionic_compile-sra_tools2.9.6']
