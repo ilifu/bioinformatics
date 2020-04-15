@@ -55,10 +55,13 @@ From: bionic.simg
     flex \
     gfortran \
     git \
+    hdf5-tools libhdf5-dev \
     hwloc libhwloc-dev \
+    libboost-all-dev \
     libevent-dev \
     libmagic1 libmagic-dev \
     libncurses5 libncurses5-dev \
+    libnetcdf-dev \
     libnuma1 libnuma-dev \
     libreadline7 libreadline-dev \
     libtool \
@@ -80,15 +83,15 @@ From: bionic.simg
   make install
   ldconfig
 
-  # hdf5
-  cd /installer
-  tar -zxf hdf5-1.12.0.tar.gz
-  cd hdf5-1.12.0
-  ./configure --enable-parallel --prefix=${SOFTWARE_PATH}
-  make -j4
-#  make check
-  make install
-  ldconfig
+#   # hdf5
+#   cd /installer
+#   tar -zxf hdf5-1.12.0.tar.gz
+#   cd hdf5-1.12.0
+#   ./configure --enable-parallel --prefix=${SOFTWARE_PATH}
+#   make -j4
+# #  make check
+#   make install
+#   ldconfig
 
   # Create /users to bind home directories into the container.
   mkdir -p /users /scratch /data
