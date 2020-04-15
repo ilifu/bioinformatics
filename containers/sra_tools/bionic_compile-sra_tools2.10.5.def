@@ -1,0 +1,208 @@
+Bootstrap: localimage
+From: bionic_compile.simg
+
+%labels
+  Maintainer Dane Kennedy
+  sra_tools_version 2.10.5
+
+#help
+  sra_tools definition file
+
+%apprun abi-dump
+  exec abi-dump "${@}"
+
+%apprun abi-load
+  exec abi-load "${@}"
+
+%apprun align-info
+  exec align-info "${@}"
+
+%apprun bam-load
+  exec bam-load "${@}"
+
+%apprun cache-mgr
+  exec cache-mgr "${@}"
+
+%apprun cg-load
+  exec cg-load "${@}"
+
+%apprun copycat
+  exec copycat "${@}"
+
+%apprun fasterq-dump
+  exec fasterq-dump "${@}"
+
+%apprun fastq-dump
+  exec fastq-dump "${@}"
+
+%apprun fastq-load
+  exec fastq-load "${@}"
+
+%apprun helicos-load
+  exec helicos-load "${@}"
+
+%apprun illumina-dump
+  exec illumina-dump "${@}"
+
+%apprun illumina-load
+  exec illumina-load "${@}"
+
+%apprun kar
+  exec kar "${@}"
+
+%apprun kdbmeta
+  exec kdbmeta "${@}"
+
+%apprun kget
+  exec kget "${@}"
+
+%apprun latf-load
+  exec latf-load "${@}"
+
+%apprun prefetch
+  exec prefetch "${@}"
+
+%apprun rcexplain
+  exec rcexplain "${@}"
+
+%apprun sam-dump
+  exec sam-dump "${@}"
+
+%apprun sff-dump
+  exec sff-dump "${@}"
+
+%apprun sff-load
+  exec sff-load "${@}"
+
+%apprun srapath
+  exec srapath "${@}"
+
+%apprun sra-pileup
+  exec sra-pileup "${@}"
+
+%apprun sra-sort
+  exec sra-sort "${@}"
+
+%apprun sra-stat
+  exec sra-stat "${@}"
+
+%apprun srf-load
+  exec srf-load "${@}"
+
+%apprun test-sra
+  exec test-sra "${@}"
+
+%apprun vdb-config
+  exec vdb-config "${@}"
+
+%apprun vdb-copy
+  exec vdb-copy "${@}"
+
+%apprun vdb-decrypt
+  exec vdb-decrypt "${@}"
+
+%apprun vdb-dump
+  exec vdb-dump "${@}"
+
+%apprun vdb-encrypt
+  exec vdb-encrypt "${@}"
+
+%apprun vdb-lock
+  exec vdb-lock "${@}"
+
+%apprun vdb-passwd
+  exec vdb-passwd "${@}"
+
+%apprun vdb-unlock
+  exec vdb-unlock "${@}"
+
+%apprun vdb-validate
+  exec vdb-validate "${@}"
+
+
+#%runscript
+#  exec R "${@}"
+
+%environment
+#  export R_VERSION=3.5.3
+  export SOFTWARE_PATH=/software
+  export PATH=${SOFTWARE_PATH}/bin:${SOFTWARE_PATH}/ncbi/sra-tools/bin:${PATH}
+  export SRA_TOOLS_VERSION=2.10.5
+  export LD_LIBRARY_PATH=${SOFTWARE_PATH}/lib64:${LD_LIBRARY_PATH}
+  export INCLUDE=${SOFTWARE_PATH}/include
+
+%setup
+  mkdir -p ${SINGULARITY_ROOTFS}/installer/ncbi
+  cp -rT ./sra_tools/ncbi-vdb ${SINGULARITY_ROOTFS}/installer/ncbi/ncbi-vdb
+  cp -rT ./sra_tools/ngs ${SINGULARITY_ROOTFS}/installer/ncbi/ngs
+  cp -rT ./sra_tools/sra-tools ${SINGULARITY_ROOTFS}/installer/ncbi/sra-tools
+
+%post
+  # Create Installation Directories and export paths. This is needed as part of post.
+  # %environment scriptlet does not define these paths during %post, only after.
+#  export R_VERSION=3.5.3
+  export INSTALLER_PATH=/installer
+  export SOFTWARE_PATH=/software
+  export LD_LIBRARY_PATH=${SOFTWARE_PATH}/lib64:${SOFTWARE_PATH}/lib:${LD_LIBRARY_PATH}
+  export LIBRARY_PATH=${SOFTWARE_PATH}/lib64${SOFTWARE_PATH}/lib:${LIBRARY_PATH}
+  export CPATH=${SOFTWARE_PATH}/include:${CPATH}
+  export INCLUDE=${SOFTWARE_PATH}/include:${INCLUDE}
+  export PKG_CONFIG_PATH=${SOFTWARE_PATH}/lib/pkgconfig:${PKG_CONFIG_PATH}
+  export SRA_TOOLS_VERSION=2.9.6
+  export PATH=${SOFTWARE_PATH}/bin:${SOFTWARE_PATH}/ncbi/sra-tools/bin:${PATH}
+  export DEBIAN_FRONTEND=noninteractive
+  export VDB_SRCDIR=${INSTALLER_PATH}/ncbi/ncbi-vdb 
+
+  # Update apt
+  apt-get update -y && apt-get upgrade -y
+  apt-get install -y libfuse2 libfuse-dev pkg-config libhdf5-dev
+
+  # build ncbi-vdb
+  cd ${INSTALLER_PATH}/ncbi/ncbi-vdb
+  ./configure --with-hdf5-prefix=/usr --prefix=${SOFTWARE_PATH}
+  make -j4
+  make install
+
+  # build ngs
+  cd ${INSTALLER_PATH}/ncbi/ngs
+  ./configure --prefix=${SOFTWARE_PATH}
+  make
+  make -C ngs-sdk
+  make -C ngs-java
+  make -C ngs-python
+  make -C ngs-sdk install
+  make -C ngs-java install
+  make -C ngs-python install
+
+
+    # build ncbi-vdb  # yes again -- there seem to be some circular dependencies?
+    cd ${INSTALLER_PATH}/ncbi/ncbi-vdb
+    ./configure --with-hdf5-prefix=/usr --prefix=${SOFTWARE_PATH}
+    make
+    make install
+
+  cd ${INSTALLER_PATH}/ncbi/ngs
+  make clean
+  ./configure --prefix=${SOFTWARE_PATH}
+  make -C ngs-sdk
+  make -C ngs-java
+  make -C ngs-python
+  make -C ngs-sdk install
+  make -C ngs-java install
+  make -C ngs-python install
+  make install
+
+  # build sra-tools
+  cd ${INSTALLER_PATH}/ncbi/sra-tools
+  ./configure --with-hdf5-prefix=/usr --prefix=${SOFTWARE_PATH}
+  make -j4
+  make install
+
+  # Cleanup the container
+  rm -rf ${INSTALLER_PATH}/ncbi
+
+  apt-get clean
+  apt-get autoclean
+
+%test
+#  /software/bin/fastq-dump | grep -q "2.9.6"
