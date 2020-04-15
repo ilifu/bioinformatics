@@ -7,6 +7,10 @@
 * Snakemake
 * singularity
 
+## submodules
+
+There are some submodules here. So remember to `git submodule init; git submodule update`. (Or clone recursively)
+
 ## Building containers
 
 As root run `snakemake --cores=2 all` to build everything. To just build the base images you could run: `snakemake --cores all_compile`.
