@@ -4,7 +4,7 @@ From: R/bionic-R3.6.3.simg
 %labels
   Maintainer Dane Kennedy
 
-#help
+%help
   RStudio 1.2.5042
 
 %apprun rserver

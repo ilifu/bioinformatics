@@ -7,7 +7,7 @@ Include: software-properties-common
   Maintainer Dane Kennedy
   Version 0.1
 
-#help
+%help
   Base singularity definition file, to create base-ubuntu-bionic.simg, which can then be used for more specific containers
 
 %environment

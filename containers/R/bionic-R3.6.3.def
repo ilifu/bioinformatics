@@ -5,8 +5,8 @@ From: bionic_compile.simg
   Maintainer Dane Kennedy
   R_Version 3.6.3
 
-#help
-  R 3.6.3 definition file.
+%help
+  R 3.6.3 container
 
 %apprun R
   exec R "${@}"

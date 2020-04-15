@@ -5,8 +5,8 @@ From: bionic_compile.simg
   Maintainer Dane Kennedy
   sra_tools_version 2.9.6
 
-#help
-  sra_tools definition file
+%help
+  sra_tools 
 
 %apprun abi-dump
   exec abi-dump "${@}"

@@ -5,7 +5,7 @@ From: bionic.simg
   Maintainer Dane Kennedy
   Version 0.1
 
-#help
+%help
   Base singularity definition file, to create bionic-compile.simg, which can then be used for more specific containers that require compiling from source.
 
 %files

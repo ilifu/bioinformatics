@@ -5,7 +5,7 @@ From: bionic_compile.simg
   Maintainer Dane Kennedy
   Java 1.8.0_221
 
-#help
+%help
   JDK 1.8.0_221
 
 %environment
