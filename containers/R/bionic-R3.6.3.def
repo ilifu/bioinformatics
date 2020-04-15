@@ -97,5 +97,6 @@ From: bionic_compile.simg
   apt-get autoclean
 
 %test
+  R_VERSION=3.6.3
   R --version | grep "${R_VERSION}"
 
