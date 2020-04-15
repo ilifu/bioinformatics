@@ -8,7 +8,7 @@ Include: software-properties-common
   Version 0.1
 
 %help
-  Base singularity definition file, to create base-ubuntu-bionic.simg, which can then be used for more specific containers
+  Base singularity definition file, to create base-ubuntu-bionic.sif, which can then be used for more specific containers
 
 %environment
   export INSTALLER_PATH=/installer

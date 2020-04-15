@@ -16,20 +16,20 @@ TENSORFLOWS = ['latest-gpu-py3-jupyter']
 
 rule all:
     input:
-        [f'{base}.simg' for base in BASES],
-        [f'{compile}.simg' for compile in COMPILE],
-        [f'R/{r}.simg' for r in RS],
-        [f'R/RStudio/{rstudio}.simg' for rstudio in RSTUDIOS],
-        [f'sra_tools/{sra_tool}.simg' for sra_tool in SRA_TOOLS],
-        [f'java/{java}.simg' for java in JAVAS],
-        [f'tensorflow/tensorflow_{tensorflow}.simg' for tensorflow in TENSORFLOWS]
+        [f'{base}.sif' for base in BASES],
+        [f'{compile}.sif' for compile in COMPILE],
+        [f'R/{r}.sif' for r in RS],
+        [f'R/RStudio/{rstudio}.sif' for rstudio in RSTUDIOS],
+        [f'sra_tools/{sra_tool}.sif' for sra_tool in SRA_TOOLS],
+        [f'java/{java}.sif' for java in JAVAS],
+        [f'tensorflow/tensorflow_{tensorflow}.sif' for tensorflow in TENSORFLOWS]
 
 
 rule base_images:
     input:
         'base-{base}.def'
     output:
-        '{base}.simg'
+        '{base}.sif'
     wildcard_constraints:
         base='[^_]+'
     shell:
@@ -37,27 +37,27 @@ rule base_images:
 
 rule all_bases:
     input:
-        [f'{base}.simg' for base in BASES]
+        [f'{base}.sif' for base in BASES]
 
 rule compile_images:
     input:
         compile='base-{base}_compile.def',
-        base='{base}.simg'
+        base='{base}.sif'
     output:
-        '{base}_compile.simg'
+        '{base}_compile.sif'
     shell:
         '{SB} {output} {input.compile}'
 
 rule all_compile:
     input:
-        [f'{compile}.simg' for compile in COMPILE]
+        [f'{compile}.sif' for compile in COMPILE]
 
 rule R:
     input:
         rs='R/{base}-{r_version}.def',
-        base='{base}_compile.simg'
+        base='{base}_compile.sif'
     output:
-        'R/{base}-{r_version}.simg'
+        'R/{base}-{r_version}.sif'
     wildcard_constraints:
         base='[^-]+',
         r_version='[^-]+'
@@ -66,15 +66,15 @@ rule R:
 
 rule all_R:
     input:
-        [f'R/{r_version}.simg' for r_version in RS]
+        [f'R/{r_version}.sif' for r_version in RS]
 
 
 rule RStudio:
     input:
         rstudios='R/RStudio/{base}-{r_version}-{rstudio}-{variant}.def',
-        rs='R/{base}-{r_version}.simg'
+        rs='R/{base}-{r_version}.sif'
     output:
-        'R/RStudio/{base}-{r_version}-{rstudio}-{variant}.simg'
+        'R/RStudio/{base}-{r_version}-{rstudio}-{variant}.sif'
     wildcard_constraints:
         base='[^-]+',
         r_version='[^-]+',
@@ -84,14 +84,14 @@ rule RStudio:
 
 rule all_RStudio:
     input:
-        [f'R/RStudio/{r_studio}.simg' for r_studio in RSTUDIOS]
+        [f'R/RStudio/{r_studio}.sif' for r_studio in RSTUDIOS]
 
 rule sra_tools:
     input:
         tools='sra_tools/{base}-{sra_tools_version}.def',
-        base_image='{base}.simg'
+        base_image='{base}.sif'
     output:
-        'sra_tools/{base}-{sra_tools_version}.simg'
+        'sra_tools/{base}-{sra_tools_version}.sif'
     wildcard_constraints:
         base='[^-]+',
         sra_tools_version='[^-]+'
@@ -100,14 +100,14 @@ rule sra_tools:
 
 rule all_sra_tools:
     input:
-        [f'sra_tools/{sra_tools_version}.simg' for sra_tools_version in SRA_TOOLS]
+        [f'sra_tools/{sra_tools_version}.sif' for sra_tools_version in SRA_TOOLS]
 
 rule htslib:
     input:
         htslibs='htslib/{base}-{htslib_version}.def',
-        base='{base}_compile.simg'
+        base='{base}_compile.sif'
     output:
-        'htslib/{base}-{htslib_version}.simg'
+        'htslib/{base}-{htslib_version}.sif'
     wildcard_constraints:
         base='[^-]+',
         htslib_version='[^-]+'
@@ -116,14 +116,14 @@ rule htslib:
 
 rule all_htslib:
     input:
-        [f'htslib/{htslib_version}.simg' for htslib_version in HTSLIBS]
+        [f'htslib/{htslib_version}.sif' for htslib_version in HTSLIBS]
 
 rule java:
     input:
         javas='java/{base}-{java_version}.def',
-        base='{base}_compile.simg'
+        base='{base}_compile.sif'
     output:
-        'java/{base}-{java_version}.simg'
+        'java/{base}-{java_version}.sif'
     wildcard_constraints:
         base='[^-]+',
         java_version='[^-]+'
@@ -134,11 +134,11 @@ rule tensorflow:
     input:
         'tensorflow/docker-tensorflow-{options}.def'
     output:
-        'tensorflow/tensorflow_{options}.simg'
+        'tensorflow/tensorflow_{options}.sif'
     shell:
         '{SB} {output} {input}'
 
 rule all_tensorflows:
     input:
-        [f'tensorflow/tensorflow_{tensorflow}.simg' for tensorflow in TENSORFLOWS]
+        [f'tensorflow/tensorflow_{tensorflow}.sif' for tensorflow in TENSORFLOWS]
 

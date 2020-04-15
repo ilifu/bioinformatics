@@ -1,12 +1,12 @@
 Bootstrap: localimage
-From: bionic.simg
+From: bionic.sif
 
 %labels
   Maintainer Dane Kennedy
   Version 0.1
 
 %help
-  Base singularity definition file, to create bionic-compile.simg, which can then be used for more specific containers that require compiling from source.
+  Base singularity definition file, to create bionic-compile.sif, which can then be used for more specific containers that require compiling from source.
 
 %files
   extra/hdf5-1.12.0.tar.gz /installer/hdf5-1.12.0.tar.gz

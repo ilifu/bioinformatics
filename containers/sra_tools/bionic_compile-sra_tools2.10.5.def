@@ -1,11 +1,11 @@
 Bootstrap: localimage
-From: bionic_compile.simg
+From: bionic_compile.sif
 
 %labels
   Maintainer Dane Kennedy
   sra_tools_version 2.10.5
 
-#help
+%help
   sra_tools definition file
 
 %apprun abi-dump
@@ -120,11 +120,7 @@ From: bionic_compile.simg
   exec vdb-validate "${@}"
 
 
-#%runscript
-#  exec R "${@}"
-
 %environment
-#  export R_VERSION=3.5.3
   export SOFTWARE_PATH=/software
   export PATH=${SOFTWARE_PATH}/bin:${SOFTWARE_PATH}/ncbi/sra-tools/bin:${PATH}
   export SRA_TOOLS_VERSION=2.10.5
