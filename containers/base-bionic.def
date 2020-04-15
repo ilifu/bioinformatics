@@ -33,7 +33,7 @@ Include: software-properties-common
   apt-get update
 
   # Install common stuff
-  DEBIAN_FRONTEND=noninteractive apt-get install -y locales screen tmux tcsh zsh lftp nano emacs
+  DEBIAN_FRONTEND=noninteractive apt-get install -y locales screen tmux tcsh zsh lftp nano emacs systemd
 
   # Configure locale
   echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
@@ -42,6 +42,9 @@ Include: software-properties-common
   /usr/sbin/update-locale LANG=en_ZA.UTF-8
   export LC_ALL=en_ZA.UTF-8
   export LANG=en_ZA.UTF-8
+
+  # Configure timezone
+  timedatectl set-timezone Africa/Johannesburg
 
   # Create /users to bind home directories into the container.
   mkdir -p /users /scratch /data
