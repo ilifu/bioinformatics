@@ -33,7 +33,7 @@ Include: software-properties-common
   apt-get update
 
   # Install common stuff
-  DEBIAN_FRONTEND=noninteractive apt-get install -y locales screen tmux tcsh zsh lftp nano emacs
+  DEBIAN_FRONTEND=noninteractive apt-get install -y locales screen tmux tcsh zsh lftp nano emacs tzdata
 
   # Configure locale
   echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
