@@ -44,8 +44,8 @@ From: bionic_compile.sif
 %apprun illumina-dump
   exec illumina-dump "${@}"
 
-%apprun illumina-load
-  exec illumina-load "${@}"
+# %apprun illumina-load
+#   exec illumina-load "${@}"
 
 %apprun kar
   exec kar "${@}"
