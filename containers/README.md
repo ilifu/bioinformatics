@@ -7,6 +7,8 @@
 * Snakemake
 * singularity
 
+The java container requires that you download [jdk-8u221-linux-x64.tar.gz](https://www.oracle.com/java/technologies/javase/javase8u211-later-archive-downloads.html) and put it in the `java/` directory.
+
 ## submodules
 
 There are some submodules here. So remember to `git submodule init; git submodule update`. (Or clone recursively)
