@@ -1,0 +1,79 @@
+Bootstrap: localimage
+From: R/bionic-R3.6.3.sif
+
+%labels
+  Maintainer Dane Kennedy
+
+%help
+  RStudio 1.2.5042
+
+%apprun rserver
+  if [ -z "${RSTUDIO_PASSWORD}" ]; then
+    echo "Remember to set the environment variable RSTUDIO_PASSWORD"
+    exit 1
+  else
+    PORT=$( python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()' )
+    echo "Running rserver on port ${PORT}"
+    exec rserver --auth-none 0 --auth-pam-helper rstudio_auth --secure-cookie-key-file /tmp/rstudio-server-${USER}/secure-cookie.key --www-port ${PORT} "${@}"
+  fi
+
+%apprun r
+  exec R "${@}"
+
+%runscript
+  if [ -z "${RSTUDIO_PASSWORD}" ]; then
+    echo "Remember to set the environment variable RSTUDIO_PASSWORD"
+    exit 1
+  else
+    PORT=$( python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()' )
+    echo "Running rserver on port ${PORT}"
+    exec rserver --auth-none 0 --auth-pam-helper rstudio_auth --secure-cookie-key-file /tmp/rstudio-server-${USER}/secure-cookie.key --www-port ${PORT} "${@}"
+  fi
+
+%environment
+  export PATH=/usr/lib/rstudio-server/bin:${PATH}
+  export RSTUDIO_VERSION=1.2.5042
+
+# Thanks to nickjer for this! https://github.com/nickjer/singularity-rstudio/blob/master/Singularity.3.6.0
+
+%setup
+  mkdir -p ${SINGULARITY_ROOTFS}/usr/lib/rstudio-server/bin
+
+%files
+  R/RStudio/rstudio_auth.sh /usr/lib/rstudio-server/bin/rstudio_auth
+
+%post
+  # Create Installation Directories and export paths. This is needed as part of post.
+  # %environment scriptlet does not define these paths during %post, only after.
+  export RSTUDIO_VERSION=1.2.5042
+  export DEBIAN_FRONTEND=noninteractive
+
+  # Update apt
+  apt-get update -y && apt-get dist-upgrade -y
+
+  # Install requirements
+  apt-get install -y \
+    ca-certificates \
+    gdebi-core \
+    systemd \
+    wget \
+
+  # Get and install RStudio
+  cd /tmp
+  wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-${RSTUDIO_VERSION}-amd64.deb
+  gdebi -n rstudio-server-${RSTUDIO_VERSION}-amd64.deb
+
+  Rscript -e 'install.packages(c("astro", "astrodatR", "mice", "nnet", "party", "ProFit", "ProFound", "randomForest", "rpart"))'
+  Rscript -e 'update.packages(ask=FALSE)'
+
+  # Set up config
+#  echo "allow   127.0.0.1\ndeny    all" >> /etc/rstudio/ip-rules
+#  echo "www-address=127.0.0.1" >> /etc/rstudio/rserver.conf
+
+  # Cleanup the container
+  apt-get clean
+  apt-get autoclean
+  rm /tmp/rstudio-server-${RSTUDIO_VERSION}-amd64.deb
+%test
+  R_VERSION=3.6.3
+  R --version | grep "${R_VERSION}"
