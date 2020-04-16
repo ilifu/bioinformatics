@@ -6,119 +6,7 @@ From: bionic_compile.sif
   sra_tools_version 2.10.5
 
 %help
-  sra_tools definition file
-
-%apprun abi-dump
-  exec abi-dump "${@}"
-
-%apprun abi-load
-  exec abi-load "${@}"
-
-%apprun align-info
-  exec align-info "${@}"
-
-%apprun bam-load
-  exec bam-load "${@}"
-
-%apprun cache-mgr
-  exec cache-mgr "${@}"
-
-%apprun cg-load
-  exec cg-load "${@}"
-
-%apprun copycat
-  exec copycat "${@}"
-
-%apprun fasterq-dump
-  exec fasterq-dump "${@}"
-
-%apprun fastq-dump
-  exec fastq-dump "${@}"
-
-%apprun fastq-load
-  exec fastq-load "${@}"
-
-%apprun helicos-load
-  exec helicos-load "${@}"
-
-%apprun illumina-dump
-  exec illumina-dump "${@}"
-
-# %apprun illumina-load
-#   exec illumina-load "${@}"
-
-%apprun kar
-  exec kar "${@}"
-
-%apprun kdbmeta
-  exec kdbmeta "${@}"
-
-%apprun kget
-  exec kget "${@}"
-
-%apprun latf-load
-  exec latf-load "${@}"
-
-%apprun prefetch
-  exec prefetch "${@}"
-
-%apprun rcexplain
-  exec rcexplain "${@}"
-
-%apprun sam-dump
-  exec sam-dump "${@}"
-
-%apprun sff-dump
-  exec sff-dump "${@}"
-
-%apprun sff-load
-  exec sff-load "${@}"
-
-%apprun srapath
-  exec srapath "${@}"
-
-%apprun sra-pileup
-  exec sra-pileup "${@}"
-
-%apprun sra-sort
-  exec sra-sort "${@}"
-
-%apprun sra-stat
-  exec sra-stat "${@}"
-
-%apprun srf-load
-  exec srf-load "${@}"
-
-%apprun test-sra
-  exec test-sra "${@}"
-
-%apprun vdb-config
-  exec vdb-config "${@}"
-
-%apprun vdb-copy
-  exec vdb-copy "${@}"
-
-%apprun vdb-decrypt
-  exec vdb-decrypt "${@}"
-
-%apprun vdb-dump
-  exec vdb-dump "${@}"
-
-%apprun vdb-encrypt
-  exec vdb-encrypt "${@}"
-
-%apprun vdb-lock
-  exec vdb-lock "${@}"
-
-%apprun vdb-passwd
-  exec vdb-passwd "${@}"
-
-%apprun vdb-unlock
-  exec vdb-unlock "${@}"
-
-%apprun vdb-validate
-  exec vdb-validate "${@}"
-
+  sra_tools 
 
 %environment
   export SOFTWARE_PATH=/software
@@ -127,6 +15,175 @@ From: bionic_compile.sif
   export LD_LIBRARY_PATH=${SOFTWARE_PATH}/lib64:${LD_LIBRARY_PATH}
   export INCLUDE=${SOFTWARE_PATH}/include
 
+# START APPRUNs
+
+%apprun abi-dump
+  exec /software/bin/abi-dump.2.10.5 "${@}"
+
+%apprun abi-load
+  exec /software/bin/abi-load.2.10.5 "${@}"
+
+%apprun aggregate_profile
+  exec /software/bin/aggregate_profile.pl "${@}"
+
+%apprun align-cache
+  exec /software/bin/align-cache.2.10.5 "${@}"
+
+%apprun align-info
+  exec /software/bin/align-info.2.10.5 "${@}"
+
+%apprun bam-load
+  exec /software/bin/bam-load.2.10.5 "${@}"
+
+%apprun cache-mgr
+  exec /software/bin/cache-mgr.2.10.5 "${@}"
+
+%apprun ccextract
+  exec /software/bin/ccextract.2.10.5 "${@}"
+
+%apprun cg-load
+  exec /software/bin/cg-load.2.10.5 "${@}"
+
+%apprun copycat
+  exec /software/bin/copycat.2.10.5 "${@}"
+
+%apprun fasterq-dump-orig
+  exec /software/bin/fasterq-dump-orig.2.10.5 "${@}"
+
+%apprun fastq-dump-orig
+  exec /software/bin/fastq-dump-orig.2.10.5 "${@}"
+
+%apprun fastq-load
+  exec /software/bin/fastq-load.2.10.5 "${@}"
+
+%apprun helicos-load
+  exec /software/bin/helicos-load.2.10.5 "${@}"
+
+%apprun illumina-dump
+  exec /software/bin/illumina-dump.2.10.5 "${@}"
+
+%apprun illumina-load
+  exec /software/bin/illumina-load.2.10.5 "${@}"
+
+%apprun kar
+  exec /software/bin/kar.2.10.5 "${@}"
+
+%apprun kdbmeta
+  exec /software/bin/kdbmeta.2.10.5 "${@}"
+
+%apprun kget
+  exec /software/bin/kget.2.10.5 "${@}"
+
+%apprun latf-load
+  exec /software/bin/latf-load.2.10.5 "${@}"
+
+%apprun md5cp
+  exec /software/bin/md5cp.2.10.5 "${@}"
+
+%apprun mpijavac
+  exec /software/bin/mpijavac.pl "${@}"
+
+%apprun ompi_info
+  exec /software/bin/ompi_info "${@}"
+
+%apprun opal_wrapper
+  exec /software/bin/opal_wrapper "${@}"
+
+%apprun orte-clean
+  exec /software/bin/orte-clean "${@}"
+
+%apprun orte-info
+  exec /software/bin/orte-info "${@}"
+
+%apprun orte-server
+  exec /software/bin/orte-server "${@}"
+
+%apprun orted
+  exec /software/bin/orted "${@}"
+
+%apprun orterun
+  exec /software/bin/orterun "${@}"
+
+%apprun prefetch-orig
+  exec /software/bin/prefetch-orig.2.10.5 "${@}"
+
+%apprun profile2mat
+  exec /software/bin/profile2mat.pl "${@}"
+
+%apprun rcexplain
+  exec /software/bin/rcexplain.2.10.5 "${@}"
+
+%apprun read-filter-redact
+  exec /software/bin/read-filter-redact.2.10.5 "${@}"
+
+%apprun remote-fuser
+  exec /software/bin/remote-fuser.2.10.5 "${@}"
+
+%apprun sam-dump-orig
+  exec /software/bin/sam-dump-orig.2.10.5 "${@}"
+
+%apprun sff-dump
+  exec /software/bin/sff-dump.2.10.5 "${@}"
+
+%apprun sff-load
+  exec /software/bin/sff-load.2.10.5 "${@}"
+
+%apprun sra-pileup-orig
+  exec /software/bin/sra-pileup-orig.2.10.5 "${@}"
+
+%apprun sra-sort-cg
+  exec /software/bin/sra-sort-cg.2.10.5 "${@}"
+
+%apprun sra-sort
+  exec /software/bin/sra-sort.2.10.5 "${@}"
+
+%apprun sra-stat
+  exec /software/bin/sra-stat.2.10.5 "${@}"
+
+%apprun srapath-orig
+  exec /software/bin/srapath-orig.2.10.5 "${@}"
+
+%apprun sratools
+  exec /software/bin/sratools.2.10.5 "${@}"
+
+%apprun srf-load
+  exec /software/bin/srf-load.2.10.5 "${@}"
+
+%apprun test-sra
+  exec /software/bin/test-sra.2.10.5 "${@}"
+
+%apprun vdb-config
+  exec /software/bin/vdb-config.2.10.5 "${@}"
+
+%apprun vdb-copy
+  exec /software/bin/vdb-copy.2.10.5 "${@}"
+
+%apprun vdb-decrypt
+  exec /software/bin/vdb-decrypt.2.10.5 "${@}"
+
+%apprun vdb-diff
+  exec /software/bin/vdb-diff.2.10.5 "${@}"
+
+%apprun vdb-dump-orig
+  exec /software/bin/vdb-dump-orig.2.10.5 "${@}"
+
+%apprun vdb-encrypt
+  exec /software/bin/vdb-encrypt.2.10.5 "${@}"
+
+%apprun vdb-lock
+  exec /software/bin/vdb-lock.2.10.5 "${@}"
+
+%apprun vdb-passwd
+  exec /software/bin/vdb-passwd.2.10.5 "${@}"
+
+%apprun vdb-unlock
+  exec /software/bin/vdb-unlock.2.10.5 "${@}"
+
+%apprun vdb-validate
+  exec /software/bin/vdb-validate.2.10.5 "${@}"
+
+# END APPRUNs
+
 %setup
   mkdir -p ${SINGULARITY_ROOTFS}/installer/ncbi
   cp -rT ./sra_tools/ncbi-vdb ${SINGULARITY_ROOTFS}/installer/ncbi/ncbi-vdb
@@ -134,9 +191,6 @@ From: bionic_compile.sif
   cp -rT ./sra_tools/sra-tools ${SINGULARITY_ROOTFS}/installer/ncbi/sra-tools
 
 %post
-  # Create Installation Directories and export paths. This is needed as part of post.
-  # %environment scriptlet does not define these paths during %post, only after.
-#  export R_VERSION=3.5.3
   export INSTALLER_PATH=/installer
   export SOFTWARE_PATH=/software
   export LD_LIBRARY_PATH=${SOFTWARE_PATH}/lib64:${SOFTWARE_PATH}/lib:${LD_LIBRARY_PATH}
