@@ -17,6 +17,7 @@ SRA_TOOLS = ['bionic_compile-sra_tools2.10.5']
 HTSLIBS = ['bionic-htslib1.9']
 JAVAS = ['bionic-jdk8u221']
 TENSORFLOWS = ['latest-gpu-py3-jupyter']
+MAXQUANTS = ['bionic-maxquant1.6.14']
 
 rule all:
     input:
@@ -26,7 +27,8 @@ rule all:
         [f'R/RStudio/{rstudio}.sif' for rstudio in RSTUDIOS],
         [f'sra_tools/{sra_tool}.sif' for sra_tool in SRA_TOOLS],
         [f'java/{java}.sif' for java in JAVAS],
-        [f'tensorflow/tensorflow_{tensorflow}.sif' for tensorflow in TENSORFLOWS]
+        [f'tensorflow/tensorflow_{tensorflow}.sif' for tensorflow in TENSORFLOWS],
+        [f'maxquant/{maxquant}.sif' for maxquant in MAXQUANTS]
 
 
 rule base_images:
@@ -145,4 +147,20 @@ rule tensorflow:
 rule all_tensorflows:
     input:
         [f'tensorflow/tensorflow_{tensorflow}.sif' for tensorflow in TENSORFLOWS]
+
+rule maxquant:
+    input:
+        rs='maxquant/{base}-{maxquant_version}.def',
+        base='{base}_compile.sif'
+    output:
+        'maxquant/{base}-{maxquant_version}.sif'
+    wildcard_constraints:
+        base='[^-]+',
+        r_version='[^-]+'
+    shell:
+        '{SB} {output} {input.rs}'
+
+rule all_maxquant:
+    input:
+        [f'maxwant/{maxquant_version}.sif' for maxquant_version in MAXQUANTS]
 
