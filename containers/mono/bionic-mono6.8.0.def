@@ -3,10 +3,10 @@ From: bionic_compile.sif
 
 %labels
   Maintainer Dane Kennedy
-  MaxQuant v1.6.14
+  mono 6.8.0
 
 %help
-  Max Quant v1.6.14 container
+  mono 6.8.0
 
 # %apprun R
 #   exec R "${@}"
@@ -30,24 +30,14 @@ From: bionic_compile.sif
   # Update apt and install prerequisites
   echo "deb http://ftp.leg.uct.ac.za/ubuntu bionic-updates main universe restricted" >> /etc/apt/sources.list
   apt-get update -y && apt-get dist-upgrade -y
-  apt install -y gnupg ca-certificates wget
+  apt install -y gnupg ca-certificates
 
   # Add Mono Repositories and Install
   apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
   echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" > /etc/apt/sources.list.d/mono-official-stable.list
   apt update
 
-  apt-get install -y mono-devel
-
-  # Download maxquant  # note the url may well change, looks like it has an expiry date...
-  mkdir -p /installer
-  wget -O /installer/MaxQuant_1.6.14.zip https://www.maxquant.org/p/maxquant/MaxQuant_1.6.14.zip?md5=l1o9iu5NrNTLqraZcUhGpw&expires=1587067155
-  
-  # Install maxquant
-  mkdir -p /software
-  cd /software
-  unzip /installer/MaxQuant_1.6.14.zip
-
+  apt-get install -y mono-complete
 
   # Cleanup the container
   apt-get clean
