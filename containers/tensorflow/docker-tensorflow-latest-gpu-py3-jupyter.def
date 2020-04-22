@@ -1,2 +1,19 @@
 Bootstrap: docker
 From: tensorflow/tensorflow:latest-gpu-py3-jupyter
+
+%labels
+  Maintainer Dane Kennedy
+  tensorflow
+
+%help
+  spliceai container
+
+%post
+  export SOFTWARE_PATH=/software
+  export DEBIAN_FRONTEND=noninteractive
+
+  apt-get update -y && apt-get dist-upgrade -y
+  apt-get install -y python3-pip python3-venv python3-virtualenv
+
+#   pip install -U pip
+#   pip install virtualenv

@@ -18,6 +18,7 @@ HTSLIBS = ['bionic-htslib1.9']
 JAVAS = ['bionic-jdk8u221']
 TENSORFLOWS = ['latest-gpu-py3-jupyter']
 MONOS = ['bionic-mono6.8.0']
+SPLICEAIS = ['spliceai1.3.1']
 
 rule all:
     input:
@@ -27,8 +28,9 @@ rule all:
         [f'R/RStudio/{rstudio}.sif' for rstudio in RSTUDIOS],
         [f'sra_tools/{sra_tool}.sif' for sra_tool in SRA_TOOLS],
         [f'java/{java}.sif' for java in JAVAS],
-        [f'tensorflow/tensorflow_{tensorflow}.sif' for tensorflow in TENSORFLOWS],
-        [f'mono/{mono}.sif' for mono in MONOS]
+        [f'tensorflow/docker-tensorflow_{tensorflow}.sif' for tensorflow in TENSORFLOWS],
+        [f'mono/{mono}.sif' for mono in MONOS],
+        [f'tensorflow/tensorflow_{spliceai}.sif' for spliceai in SPLICEAIS]
 
 
 rule base_images:
@@ -140,13 +142,27 @@ rule tensorflow:
     input:
         'tensorflow/docker-tensorflow-{options}.def'
     output:
-        'tensorflow/tensorflow_{options}.sif'
+        'tensorflow/docker-tensorflow_{options}.sif'
     shell:
         '{SB} {output} {input}'
 
 rule all_tensorflows:
     input:
         [f'tensorflow/tensorflow_{tensorflow}.sif' for tensorflow in TENSORFLOWS]
+
+rule spliceai:
+    input:
+        spliceai_def='tensorflow/tensorflow-{spliceai_version}.def',
+        tensorflow_sif='tensorflow/docker-tensorflow_latest-gpu-py3-jupyter.sif'
+    output:
+        'tensorflow/tensorflow_{spliceai_version}.sif'
+    shell:
+        '{SB} {output} {input.spliceai_def}'
+
+rule all_spliceais:
+    input:
+        [f'tensorflow/{spliceai}' for spliceai in SPLICEAIS]
+
 
 rule mono:
     input:
